@@ -6,6 +6,7 @@
 #include "playerbot/strategy/values/ItemUsageValue.h"
 #include "Guilds/Guild.h"
 #include "Guilds/GuildMgr.h"
+#include "playerbot/strategy/values/GuildValues.h"
 
 using namespace ai;
 
@@ -166,7 +167,12 @@ bool GuildBankAction::AutoWithdraw(GameObject* bank)
 
         for (uint8 slotId = 0; slotId < GUILD_BANK_MAX_SLOTS; ++slotId)
         {
+#ifdef MANGOSBOT_TWO
+            GuildAccess* guildAccess = reinterpret_cast<GuildAccess*>(guild);
+            Item* item = guildAccess->GetItem(tabId, slotId);
+#else
             Item* item = guild->GetItem(tabId, slotId);
+#endif
             if (!item)
                 continue;
 

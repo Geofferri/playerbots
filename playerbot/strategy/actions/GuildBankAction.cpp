@@ -167,12 +167,9 @@ bool GuildBankAction::AutoWithdraw(GameObject* bank)
 
         for (uint8 slotId = 0; slotId < GUILD_BANK_MAX_SLOTS; ++slotId)
         {
-#ifdef MANGOSBOT_TWO
-            GuildAccess* guildAccess = reinterpret_cast<GuildAccess*>(guild);
-            Item* item = guildAccess->GetItem(tabId, slotId);
-#else
-            Item* item = guild->GetItem(tabId, slotId);
-#endif
+            GuildAccess* guildAccess = static_cast<GuildAccess*>(guild);
+            Item* item = guildAccess->GetGuildItem(tabId, slotId);
+
             if (!item)
                 continue;
 

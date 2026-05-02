@@ -10,8 +10,8 @@
 
 using namespace ai;
 
-#ifdef MANGOSBOT_TWO
-Item* GuildAccess::GetItem(uint8 TabId, uint8 SlotId)
+#ifndef MANGOSBOT_ZERO
+Item* GuildAccess::GetGuildItem(uint8 TabId, uint8 SlotId)
 {
     if (TabId >= GetPurchasedTabs() || SlotId >= GUILD_BANK_MAX_SLOTS)
         return nullptr;

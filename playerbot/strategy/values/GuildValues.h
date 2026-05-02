@@ -4,50 +4,11 @@
 
 namespace ai
 {
-#ifdef MANGOSBOT_TWO
-    // Accessor class to reach private Guild methods (mirrors LootAccess pattern)
-    class GuildAccess
+#ifndef MANGOSBOT_ZERO
+    class GuildAccess : public Guild
     {
     public:
-        uint8 GetPurchasedTabs() const { return m_TabList.size(); }
-        Item* GetItem(uint8 TabId, uint8 SlotId);
-    private:
-        typedef std::unordered_map<uint32, MemberSlot> MemberList;
-        typedef std::vector<RankInfo> RankList;
-        uint32 m_Id;
-        std::string m_Name;
-        ObjectGuid m_LeaderGuid;
-        std::string MOTD;
-        std::string GINFO;
-        time_t m_CreatedDate;
-
-        uint32 m_EmblemStyle;
-        uint32 m_EmblemColor;
-        uint32 m_BorderStyle;
-        uint32 m_BorderColor;
-        uint32 m_BackgroundColor;
-        uint32 m_accountsNumber; // 0 used as marker for need lazy calculation at request
-
-        RankList m_Ranks;
-
-        MemberList members;
-
-        std::vector<GuildBankTab> m_TabList;
-
-        /** These are actually ordered lists. The first element is the oldest entry.*/
-        typedef std::list<GuildEventLogEntry> GuildEventLog;
-        typedef std::list<GuildBankEventLogEntry> GuildBankEventLog;
-        GuildEventLog m_GuildEventLog;
-        GuildBankEventLog m_GuildBankEventLog_Money;
-        GuildBankEventLog m_GuildBankEventLog_Item[GUILD_BANK_MAX_TABS];
-
-        uint32 m_GuildEventLogNextGuid;
-        uint32 m_GuildBankEventLogNextGuid_Money;
-        uint32 m_GuildBankEventLogNextGuid_Item[GUILD_BANK_MAX_TABS];
-
-        uint64 m_GuildBankMoney;
-
-        MaNGOS::unique_weak_ptr<Guild> m_weakRef;
+        Item* GetGuildItem(uint8 TabId, uint8 SlotId);
     };
 #endif
 
